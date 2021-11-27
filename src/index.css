@@ -1,0 +1,15 @@
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+.icon{
+    font-size:50px;
+}
+.screen-login{
+    background-image: url('./images/imagen_fondo.jpg');
+}
+.bg-login{
+    background-color: rgba(211, 211, 211, 0.911);
+}
