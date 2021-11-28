@@ -11,7 +11,7 @@ export const useGetCharacter = (id) => {
                 const character = res.data;
                 setCharacter(character)
             })
-    }, [])
+    }, [id])
 
     return [character]
 }
