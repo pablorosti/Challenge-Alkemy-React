@@ -8,6 +8,8 @@ export const TeamProvider = ({ children }) => {
     const [render, setRender] = useState(false);
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [cantBad, setCantBad] = useState(0);
+    const [cantGood, setCantGood] = useState(0);
 
     return (
         <TeamContext.Provider value={{
@@ -18,7 +20,11 @@ export const TeamProvider = ({ children }) => {
             setCharacters,
             characters,
             setLoading,
-            loading
+            loading,
+            setCantBad,
+            cantBad,
+            setCantGood,
+            cantGood
         }}>
             {children}
         </TeamContext.Provider>

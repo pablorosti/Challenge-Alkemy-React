@@ -4,30 +4,27 @@ import { TeamContext } from '../context/TeamContext';
 import { MessageError } from './MessageError';
 import { Toaster, toast } from 'react-hot-toast';
 import { validateAddCharacter } from '../functions/validateAddCharacter';
+import { validateAlignment } from '../functions/validateAlignment';
 
 export const CharacterCard = React.memo((props) => {
-
-    const { team, setTeam, setRender, render } = useContext(TeamContext);
+    const { team, setTeam, setRender, render, setCantBad, cantBad, setCantGood, cantGood } = useContext(TeamContext);
     const [error, setError] = useState(false)
 
     const handleTeamClick = () => {
         if (team.length === 0) {
-            setTeam([...team, props]);
-            toast('¡Personaje agregado al equipo!');
+            const message = validateAlignment(props, team, cantBad, cantGood, setCantBad, setTeam, setCantGood)
+            toast(message);
             return;
         }
         else if (team.length > 0) {
             const result = validateAddCharacter(team, props);
             if (result === undefined) {
-                if (props.biography.alignment === "bad" && team.length < 6) {
-                    setTeam([...team, props]);
-                    toast('¡Personaje agregado al equipo!');
-                    return;
-                } else if (props.biography.alignment === "good" && team.length < 6) {
-                    setTeam([...team, props]);
-                    toast('¡Personaje agregado al equipo!');
+                const message = validateAlignment(props, team, cantBad, cantGood, setCantBad, setTeam, setCantGood)
+                if (message !== undefined) {
+                    toast(message);
                     return;
                 }
+                toast("No puede agregar mas de 3 personajes de la misma alineación");
             } else {
                 setError(true);
                 return;
@@ -70,6 +67,8 @@ export const CharacterCard = React.memo((props) => {
                     },
                 }}
             />
+            <p>Buenos: {cantGood}</p>
+            <p>malos: {cantBad}</p>
             <div className="card mt-2 mb-2 shadow-lg bg-body rounded" >
                 <img src={props.image.url} className="card-img-top" alt="imagen" style={{ height: "300px" }} />
                 <div className="card-body">
