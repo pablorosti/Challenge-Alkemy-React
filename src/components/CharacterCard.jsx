@@ -3,16 +3,12 @@ import { Link } from 'react-router-dom';
 import { TeamContext } from '../context/TeamContext';
 import { MessageError } from './MessageError';
 import { Toaster, toast } from 'react-hot-toast';
+import { validateAddCharacter } from '../functions/validateAddCharacter';
 
 export const CharacterCard = React.memo((props) => {
 
     const { team, setTeam, setRender, render } = useContext(TeamContext);
     const [error, setError] = useState(false)
-
-    const validateArray = (array) => {
-        return array.find(e => e.id === props.id);
-
-    }
 
     const handleTeamClick = () => {
         if (team.length === 0) {
@@ -21,7 +17,7 @@ export const CharacterCard = React.memo((props) => {
             return;
         }
         else if (team.length > 0) {
-            const result = validateArray(team);
+            const result = validateAddCharacter(team, props);
             if (result === undefined) {
                 if (props.biography.alignment === "bad" && team.length < 6) {
                     setTeam([...team, props]);
@@ -38,43 +34,6 @@ export const CharacterCard = React.memo((props) => {
             }
         }
     }
-
-    // //Agregamos los personajes al equipo y validamos...
-    // const handleTeamClick = () => {
-    //     if (team.length === 0) {
-    //         if (props.biography.alignment === "bad" && team.length < 6) {
-    //             setTeam([...team, props]);
-    //             toast('¡Personaje agregado al equipo!');
-    //             return;
-    //         } else if (props.biography.alignment === "good" && team.length < 6) {
-    //             setTeam([...team, props]);
-    //             toast('¡Personaje agregado al equipo!');
-    //             return;
-    //         }
-    //     }
-    //     if (team.length > 0) {
-    //         team?.forEach(ch => {
-    //             if (ch.id === props.id) {
-    //                 setError(true);
-    //                 return false;
-
-    //             } else {
-    //                 console.log('Nos metimos al else')
-    //                 if (props.biography.alignment === "bad" && team.length < 6) {
-    //                     setTeam([...team, props]);
-    //                     toast('¡Personaje agregado al equipo!');
-    //                     console.log('Nos metimos al primer if')
-    //                     return;
-    //                 } else if (props.biography.alignment === "good" && team.length < 6) {
-    //                     setTeam([...team, props]);
-    //                     toast('¡Personaje agregado al equipo!');
-    //                     console.log('Se metio en el else if')
-    //                     return;
-    //                 }
-    //             }
-    //         })
-    //     }
-    // }
 
     //Eliminamos el personaje del equipo
     const handleTeamDeleteClick = () => {
