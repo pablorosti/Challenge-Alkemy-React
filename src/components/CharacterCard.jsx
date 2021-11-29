@@ -67,8 +67,6 @@ export const CharacterCard = React.memo((props) => {
                     },
                 }}
             />
-            <p>Buenos: {cantGood}</p>
-            <p>malos: {cantBad}</p>
             <div className="card mt-2 mb-2 shadow-lg bg-body rounded" >
                 <img src={props.image.url} className="card-img-top" alt="imagen" style={{ height: "300px" }} />
                 <div className="card-body">
