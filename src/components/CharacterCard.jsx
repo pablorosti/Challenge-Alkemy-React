@@ -39,6 +39,7 @@ export const CharacterCard = React.memo((props) => {
         team.splice(index, 1);
         toast('¡Personaje eliminado!');
         setRender(!render);
+        return;
     }
 
     return (
