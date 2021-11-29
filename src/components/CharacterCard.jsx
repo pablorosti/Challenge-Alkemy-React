@@ -13,7 +13,7 @@ export const CharacterCard = React.memo((props) => {
     const handleTeamClick = () => {
         if (team.length === 0) {
             const message = validateAlignment(props, team, cantBad, cantGood, setCantBad, setTeam, setCantGood)
-            toast(message);
+            toast('¡Personaje agregado al equipo!');
             return;
         }
         else if (team.length > 0) {
